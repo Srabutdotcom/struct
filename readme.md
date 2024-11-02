@@ -120,14 +120,6 @@ The `member` property returns an array of `Uint8Array` instances that were passe
 
 The type definitions for the `Struct` class can be found in the accompanying `struct.d.ts` file.
 
-## Testing
-
-Unit tests for the `Struct` class can be found in the `struct.test.ts` file. Use the following command to run the tests with Deno:
-
-```bash
-deno test
-```
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -138,4 +130,4 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 
 ### Donation
 - https://paypal.me/aiconeid
-
+```
