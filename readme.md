@@ -1,4 +1,3 @@
-```markdown
 # Struct Class for TLS 1.3
 
 ## Overview
@@ -60,6 +59,5 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 
 ### Donation
 - https://paypal.me/aiconeid
-```
 
 
