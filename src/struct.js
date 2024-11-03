@@ -7,6 +7,8 @@ export class Struct extends Uint8Array {
    /** @type {Uint8Array[]} */
    #member;
 
+   static of(...items){return new Struct(...items)}
+   static from(...items){return new Struct(...items)}
    /**
     * Creates a new Struct instance.
     *
@@ -20,6 +22,7 @@ export class Struct extends Uint8Array {
          : items.map(item => {
             if (item instanceof Uint8Array) return item;
             if (typeof item === "number") return Uint8Array.of(item);
+            if (typeof +item === "number") return Uint8Array.of(+item);
             throw new TypeError("Expected all arguments to be Uint8Array or number");
          });
 
