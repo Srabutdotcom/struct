@@ -7,8 +7,7 @@ export class Struct extends Uint8Array {
    /** @type {Uint8Array[]} */
    #member;
 
-   static of(...items){return new Struct(...items)}
-   static from(...items){return new Struct(...items)}
+   static from(...items) { return new Struct(...items) }
    /**
     * Creates a new Struct instance.
     *
@@ -17,12 +16,17 @@ export class Struct extends Uint8Array {
     * @throws {TypeError} If any argument is neither a `Uint8Array` nor a `number`.
     */
    constructor(...items) {
-      const validatedItems = items.length === 0 
-         ? [new Uint8Array()] 
+      const validatedItems = items.length === 0
+         ? [new Uint8Array()]
          : items.map(item => {
             if (item instanceof Uint8Array) return item;
-            if (typeof item === "number") return Uint8Array.of(item);
-            if (typeof +item === "number") return Uint8Array.of(+item);
+            const num = typeof item === "number" ? item : Number(item);
+            if (!Number.isNaN(num)) {
+               if (num < 0 || num > 255) {
+                  throw new RangeError("Number values must be between 0 and 255");
+               }
+               return Uint8Array.of(num);
+            }
             throw new TypeError("Expected all arguments to be Uint8Array or number");
          });
 
