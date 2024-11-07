@@ -1,3 +1,7 @@
+/**
+ * A class that represents a constrained array with specified minimum and maximum length constraints.
+ * Extends the `Uint8Array` class.
+ */
 export class Constrained extends Uint8Array {
     /**
      * Creates a new Constrained instance with specified MIN and MAX length constraints.
