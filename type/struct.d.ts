@@ -1,30 +1,36 @@
+// struct.d.ts
+
 /**
- * Represents a TLS 1.3 `Struct` that can hold a sequence of `Uint8Array` or number values.
+ * A class that represents a structure composed of multiple `Uint8Array` or `number` values.
+ * The `Struct` class stores an array of `Uint8Array` members and concatenates them into a single `Uint8Array`.
  */
-export declare class Struct extends Uint8Array {
+export class Struct extends Uint8Array {
     /**
-     * Creates an instance of `Struct`.
-     * @param items - A variable number of arguments, each of which can be either a `Uint8Array` or a `number`.
-     * @throws TypeError if any argument is not a `Uint8Array` or `number`.
+     * Creates a new Struct instance from the given items.
+     * @param items - Items to include in the structure. Each item can be either
+     *                a `Uint8Array` or a `number` (which will be converted to `Uint8Array`).
+     * @returns A new Struct instance.
+     */
+    static createFrom(...items: (Uint8Array | number)[]): Struct;
+
+    /**
+     * Alias for createFrom to create a new Struct instance.
+     * @param items - Items to include in the structure.
+     * @returns A new Struct instance.
+     */
+    static newStruct(...items: (Uint8Array | number)[]): Struct;
+
+    /**
+     * Creates a new Struct instance.
+     * @param items - Items to include in the structure. Each item can be either
+     *                a `Uint8Array` or a `number` (which will be converted to `Uint8Array`).
+     * @throws {TypeError} If any argument is neither a `Uint8Array` nor a `number`.
      */
     constructor(...items: (Uint8Array | number)[]);
-  
+
     /**
-     * The internal representation of the struct members, stored as an array of `Uint8Array` instances.
+     * Returns the array of `Uint8Array` members in the structure.
+     * @returns An array of the `Uint8Array` members.
      */
-    readonly #member: Uint8Array[];
-  
-    /**
-     * Returns an array of `Uint8Array` that represent the individual members of this struct.
-     * @returns An array of `Uint8Array` instances.
-     */
-    get member(): Uint8Array[];
-  
-    /**
-     * Concatenates multiple `Uint8Array` instances into a single `Uint8Array`.
-     * @param items - An array of `Uint8Array` instances to concatenate.
-     * @returns A single `Uint8Array` representing the concatenated result.
-     */
-    private static concat(...items: Uint8Array[]): Uint8Array;
-  }
-  
+    get items(): Uint8Array[];
+}

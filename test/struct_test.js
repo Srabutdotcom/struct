@@ -6,9 +6,9 @@ Deno.test("Struct - Initialization with Uint8Array items", () => {
   const item2 = new Uint8Array([4, 5, 6]);
   const struct = new Struct(item1, item2);
 
-  assertEquals(struct.member.length, 2);
-  assertEquals(struct.member[0], item1);
-  assertEquals(struct.member[1], item2);
+  assertEquals(struct.items.length, 2);
+  assertEquals(struct.items[0], item1);
+  assertEquals(struct.items[1], item2);
   assertEquals(struct.length, 6);
   assertEquals(struct[0], 1);
   assertEquals(struct[5], 6);
@@ -17,10 +17,10 @@ Deno.test("Struct - Initialization with Uint8Array items", () => {
 Deno.test("Struct - Initialization with number items", () => {
   const struct = new Struct(10, 20, 30);
 
-  assertEquals(struct.member.length, 3);
-  assertEquals(struct.member[0], new Uint8Array([10]));
-  assertEquals(struct.member[1], new Uint8Array([20]));
-  assertEquals(struct.member[2], new Uint8Array([30]));
+  assertEquals(struct.items.length, 3);
+  assertEquals(struct.items[0], 10);
+  assertEquals(struct.items[1], 20);
+  assertEquals(struct.items[2], 30);
   assertEquals(struct.length, 3);
   assertEquals(struct[0], 10);
   assertEquals(struct[2], 30);
@@ -30,10 +30,10 @@ Deno.test("Struct - Mixed Uint8Array and number items", () => {
   const item1 = new Uint8Array([1, 2, 3]);
   const struct = new Struct(item1, 10, new Uint8Array([4, 5]));
 
-  assertEquals(struct.member.length, 3);
-  assertEquals(struct.member[0], item1);
-  assertEquals(struct.member[1], new Uint8Array([10]));
-  assertEquals(struct.member[2], new Uint8Array([4, 5]));
+  assertEquals(struct.items.length, 3);
+  assertEquals(struct.items[0], item1);
+  assertEquals(struct.items[1], 10);
+  assertEquals(struct.items[2], new Uint8Array([4, 5]));
   assertEquals(struct.length, 6);
   assertEquals(struct[0], 1);
   assertEquals(struct[5], 5);
@@ -42,7 +42,7 @@ Deno.test("Struct - Mixed Uint8Array and number items", () => {
 Deno.test("Struct - Empty initialization", () => {
   const struct = new Struct();
 
-  assertEquals(struct.member.length, 1);
+  assertEquals(struct.items.length, 0);
   assertEquals(struct.length, 0);
 });
 
