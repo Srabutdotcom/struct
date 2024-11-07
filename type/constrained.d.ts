@@ -15,17 +15,20 @@ export class Constrained extends Uint8Array {
     constructor(MIN: number, MAX: number, ...items: any[]);
 
     /**
-     * Creates a new Constrained instance from the given items.
-     * @param MIN - The minimum length for the data.
-     * @param MAX - The maximum length for the data.
-     * @param items - The items to include in the constrained array.
-     * @returns A new Constrained instance.
-     */
-    static createConstrained(MIN: number, MAX: number, ...items: any[]): Constrained;
-
-    /**
      * Gets the items included in the constrained array.
      * @returns The items in the constrained array.
      */
     get items(): any[];
+
+    /**
+     * Gets the minimum length constraint.
+     * @returns The minimum length.
+     */
+    get MIN(): number;
+
+    /**
+     * Gets the maximum length constraint.
+     * @returns The maximum length.
+     */
+    get MAX(): number;
 } 
