@@ -1,5 +1,6 @@
 import { assertEquals } from "jsr:@std/assert";
 import { ensureUint8Array, concatOctet, uint8ArrayToValue } from "../src/utils.js";
+import { ValueToUint8Array } from "../src/utils.js";
 
 Deno.test("ensureUint8Array - Valid inputs", () => {
   const result = ensureUint8Array(new Uint8Array([1, 2]), 3);
@@ -26,6 +27,8 @@ Deno.test("concatOctet - Concatenates arrays", () => {
 Deno.test("uint8ArrayToValue - Converts to number", () => {
   const result = uint8ArrayToValue(new Uint8Array([0, 0, 1, 0]));
   assertEquals(result, 256);
+  const test = uint8ArrayToValue(new Uint8Array([0, 10]))
+  assertEquals(test, 10)
 });
 
 Deno.test("uint8ArrayToValue - Invalid input", () => {
@@ -36,4 +39,11 @@ Deno.test("uint8ArrayToValue - Invalid input", () => {
     errorOccurred = e instanceof TypeError;
   }
   assertEquals(errorOccurred, true);
-}); 
+});
+
+Deno.test("ValueToUint8Array", () => {
+  const test = ValueToUint8Array.of(2 ** 32 - 1, 256);
+  const back = uint8ArrayToValue(test)
+  assertEquals(test.toString(), new Uint8Array([0, 0, 1, 0]).toString())
+  assertEquals(back, 256)
+})

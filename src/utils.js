@@ -117,8 +117,10 @@ export function uint8ArrayToValue(uint8array){
    }
    if(uint8array.length == 0 )return 0;
    let value = 0;
+   let j = 3
    for(let i = uint8array.length -1;i>=0; i--){
-      value +=uint8array[i]*byteMultiplier[i]
+      value +=uint8array[i]*byteMultiplier[j];
+      j--
    }
    return value;
 }
