@@ -8,9 +8,9 @@ import { concatOctet, ValueToUint8Array } from "./utils.js";
  */
 export class Constrained extends Uint8Array {
     /** @type {number} */
-    _MIN;
+    #_MIN;
     /** @type {number} */
-    _MAX;
+    #_MAX;
     /** @type {any[]} */
     #items;
 
@@ -47,8 +47,8 @@ export class Constrained extends Uint8Array {
         const lengthOfConcatItems = ValueToUint8Array.of(MAX, concatItems.length);
 
         super(concatOctet(lengthOfConcatItems, concatItems));
-        this._MIN = MIN;
-        this._MAX = MAX;
+        this.#_MIN = MIN;
+        this.#_MAX = MAX;
         this.#items = items;
     }
 
@@ -65,7 +65,7 @@ export class Constrained extends Uint8Array {
      * @returns {number} The minimum length.
      */
     get MIN() {
-        return this._MIN;
+        return this.#_MIN;
     }
 
     /**
@@ -73,7 +73,7 @@ export class Constrained extends Uint8Array {
      * @returns {number} The maximum length.
      */
     get MAX() {
-        return this._MAX;
+        return this.#_MAX;
     }
 }
 
