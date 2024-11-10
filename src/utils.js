@@ -70,7 +70,7 @@ export class ValueToUint8Array extends Uint8Array {
      * @param {number} value - The value to convert.
      * @returns {ValueToUint8Array} A new instance.
      */
-   static of(max, value){return new ValueToUint8Array(max, value)}
+   static of(max, value) { return new ValueToUint8Array(max, value) }
    /**
      * Converts a value to a Uint8Array.
      * @param {number} value - The value to convert.
@@ -100,6 +100,12 @@ var byteMultiplier = [
    256,
    1
 ]
+var converters = [
+   (value) => Math.trunc(value / 16777216),
+   (value) => Math.trunc(value / 65536),
+   (value) => Math.trunc(value / 256),
+   (value) => value % 256
+];
 
 /**
  * Converts a Uint8Array to a numeric value.
@@ -108,20 +114,113 @@ var byteMultiplier = [
  * @throws {TypeError} If the input is not a Uint8Array.
  * @throws {RangeError} If the Uint8Array length is greater than 4.
  */
-export function uint8ArrayToValue(uint8array){
-   if(!(uint8array instanceof Uint8Array)){
+export function uint8ArrayToValue(uint8array) {
+   if (!(uint8array instanceof Uint8Array)) {
       throw new TypeError(`expected Uint8Array as single parameter`)
    }
-   if(uint8array.length > 4 ){
+   if (uint8array.length > 4) {
       throw new RangeError(`Max length of Uint8Array is 4`)
    }
-   if(uint8array.length == 0 )return 0;
+   if (uint8array.length == 0) return 0;
    let value = 0;
    let j = 3
-   for(let i = uint8array.length -1;i>=0; i--){
-      value +=uint8array[i]*byteMultiplier[j];
+   for (let i = uint8array.length - 1; i >= 0; i--) {
+      value += uint8array[i] * byteMultiplier[j];
       j--
    }
    return value;
 }
 
+/**
+ * Class representing a positive integer with a maximum value and byte length.
+ */
+export class Uint {
+   #uint
+   #MAX
+   #byteLength
+   static from(value, max) { return new Uint(value, max) }
+   constructor(value, max) {
+      this.#uint = this.validate(value)
+      this.setMax(max);
+      this.getMaxAndByteLength(value)
+   }
+   /**
+    * Validates the value to ensure it is a positive integer.
+    * @param {number|string} value - The value to validate.
+    * @returns {number} The validated positive integer.
+    * @throws {TypeError} If the value is not a positive integer.
+    */
+   validate(value) {
+      const num = Number(value);
+      if (!Number.isInteger(num) || num <= 0) {
+         throw new TypeError("Value must be a positive integer");
+      }
+      return num;
+   }
+   /**
+    * Update MAX and byteLength based on value.
+    * @param {number} value - The value to check.
+    */
+   getMaxAndByteLength(value) {
+      if (this.#MAX) return
+      if (value < 256) {
+         this.#MAX = 255;
+         this.#byteLength = 1; return
+      } else if (value < 65536) {
+         this.#MAX = 65535;
+         this.#byteLength = 2; return
+      } else if (value < 16777216) {
+         this.#MAX = 16777215;
+         this.#byteLength = 3; return
+      } else {
+         this.#MAX = 4294967295;
+         this.#byteLength = 4; return
+      }
+   }
+   /**
+    * Sets the maximum value and byte length based on the provided max.
+    * @param {number} max - The maximum value to set.
+    */
+   setMax(max) {
+      if(!max) return
+      if (max == 1) {
+         this.#MAX = 256;
+         this.#byteLength = 1; return
+      } else if (max == 2) {
+         this.#MAX = 65536;
+         this.#byteLength = 2; return
+      } else if (max == 3) {
+         this.#MAX = 16777216;
+         this.#byteLength = 3; return
+      } else if (max == 4) {
+         this.#MAX = 4294967296;
+         this.#byteLength = 4; return
+      } else {
+         this.#MAX = max;
+         this.#byteLength = lengthOf(this.#MAX); return
+      }
+   }
+   /**
+    * Converts the value to a Uint8Array with the calculated byte length.
+    * @returns {Uint8Array} The Uint8Array representation of the value.
+    */
+   toUint8Array() {
+      const uint8array = new Uint8Array(this.#byteLength);
+      let j = 3;
+      for (let i = this.#byteLength - 1; i >= 0; i--) {
+         uint8array[i] = converters[j](this.#uint);
+         j--;
+      }
+      return uint8array
+   }
+   /**
+    * Gets the maximum value.
+    * @returns {number} The maximum value.
+    */
+   get MAX() { return this.#MAX }
+   /**
+    * Gets the byte length.
+    * @returns {number} The byte length.
+    */
+   get byteLength() { return this.#byteLength }
+}
