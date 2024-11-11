@@ -131,6 +131,13 @@ export function uint8ArrayToValue(uint8array) {
    return value;
 }
 
+export class Byte extends Uint8Array {
+   constructor(array){
+      super(array)
+   }
+   Value(){ return uint8ArrayToValue(this)}
+}
+
 /**
  * Class representing a positive integer with a maximum value and byte length.
  */
