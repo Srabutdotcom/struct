@@ -1,3 +1,4 @@
+// @ts-self-types="../type/byte.d.ts"
 import { uint8ArrayToValue, Uint } from "./utils.js"
 
 /**
