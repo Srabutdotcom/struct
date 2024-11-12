@@ -1,5 +1,5 @@
-import { Byte } from "../src/byte.js"
-import { uint8ArrayToValue } from "../src/utils.js"
+import { Byte, uint8ArrayToValue } from "../src/mod.ts"
+//import {  } from "../src/utils.js"
 import { assertEquals } from "jsr:@std/assert";
 
 // Deno tests
