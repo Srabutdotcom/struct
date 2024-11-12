@@ -20,10 +20,11 @@ export class Byte extends Uint8Array {
    /**
     * Creates a Byte instance from a numeric value.
     * @param {number} value - The numeric value to convert to a Byte instance.
+    * @param {number} max - The maximum value allowed 
     * @returns {Byte} The created Byte instance.
     */
-   static fromValue(value) {
-      const uint = Uint.from(value);
+   static fromValue(value, max) {
+      const uint = Uint.from(value, max);
       return Byte.from(uint.toUint8Array())
    }
 

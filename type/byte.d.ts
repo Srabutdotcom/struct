@@ -12,9 +12,10 @@ export declare class Byte extends Uint8Array {
     /**
      * Creates a Byte instance from a numeric value.
      * @param value - The numeric value to convert to a Byte instance.
+     * @param {number} max - The maximum value allowed 
      * @returns The created Byte instance.
      */
-    static fromValue(value: number): Byte;
+    static fromValue(value: number, max: number): Byte;
 
     /**
      * Creates a Byte instance.
