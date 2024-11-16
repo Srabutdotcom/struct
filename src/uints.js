@@ -4,6 +4,13 @@
  * Represents an 8-bit unsigned integer as a Uint8Array.
  */
 export class Uint8 extends Uint8Array {
+   constructor(array){
+      super(array)
+   }
+   static from(array){
+      const copy = Uint8Array.from(array)
+      return new Uint8(copy)
+   }
    static fromValue(uint8) {
       return new Uint8([uint8 % 256]);
    }
@@ -15,6 +22,13 @@ export class Uint8 extends Uint8Array {
  * Represents a 16-bit unsigned integer as a Uint8Array.
  */
 export class Uint16 extends Uint8Array {
+   constructor(array){
+      super(array)
+   }
+   static from(array){
+      const copy = Uint8Array.from(array)
+      return new Uint16(copy)
+   }
    static fromValue(uint16) {
       return new Uint16([Math.trunc(uint16 / 256), uint16 % 256]);
    }
@@ -26,6 +40,13 @@ export class Uint16 extends Uint8Array {
  * Represents a 24-bit unsigned integer as a Uint8Array.
  */
 export class Uint24 extends Uint8Array {
+   constructor(array){
+      super(array)
+   }
+   static from(array){
+      const copy = Uint8Array.from(array)
+      return new Uint24(copy)
+   }
    static fromValue(uint24) {
       return new Uint24([Math.trunc(uint24 / 65536), Math.trunc(uint24 / 256), uint24 % 256]);
    }
@@ -36,6 +57,13 @@ export class Uint24 extends Uint8Array {
  * Represents a 32-bit unsigned integer as a Uint8Array.
  */
 export class Uint32 extends Uint8Array {
+   constructor(array){
+      super(array)
+   }
+   static from(array){
+      const copy = Uint8Array.from(array)
+      return new Uint32(copy)
+   }
    static fromValue(uint32) {
       return new Uint32([Math.trunc(uint32 / 16777216), Math.trunc(uint32 / 65536), Math.trunc(uint32 / 256), uint32 % 256]);
    }
