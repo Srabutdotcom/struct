@@ -223,4 +223,8 @@ export class Uint {
     * @returns {number} The byte length.
     */
    get byteLength() { return this.#byteLength }
+   [Symbol.toPrimitive](hint) {
+      if(hint==="number")return this.#uint;
+      return this.#uint
+   }
 }

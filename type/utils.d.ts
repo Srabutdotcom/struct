@@ -106,4 +106,5 @@ export class Uint {
      * @returns {number} The byte length.
      */
     get byteLength(): number;
+    [Symbol.toPrimitive](hint: string): number;
 }
