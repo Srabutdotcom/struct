@@ -152,7 +152,7 @@ export class Uint {
     */
    validate(value) {
       const num = Number(value);
-      if (!Number.isInteger(num) || num <= 0) {
+      if (!Number.isInteger(num) || num < 0) {
          throw new TypeError("Value must be a positive integer");
       }
       return num;
