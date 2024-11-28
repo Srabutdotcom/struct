@@ -58,4 +58,10 @@ export class HexaDecimal {
     * Returns the Uint8Array representation of the stored hexadecimal string.
     */
    get byte(): Uint8Array;
+
+   /* returns hexa decimal string */
+   get string(): String
+
+   /* Returns hexa decimal string without spaces */
+   get normalized(): String
 }

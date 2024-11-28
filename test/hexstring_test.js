@@ -10,4 +10,9 @@ Deno.test("HexaDecimal", () => {
    const test2 = HexaDecimal.fromString("99381de560").byte
    const back2 = HexaDecimal.fromUint8Array(test2).byte
    assertEquals(test2, back2)
+   const normalized = HexaDecimal.fromString("99381de560").normalized
+   assertEquals(normalized, "99381de560")
+
 })
+
+

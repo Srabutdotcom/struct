@@ -42,5 +42,13 @@ export class HexaDecimal {
    get byte(){
       return HexaDecimal.uint8Array(this.#hexadecimal)
    }
+
+   get string(){
+      return this.#hexadecimal
+   }
+
+   get normalized(){
+      return HexaDecimal.normalize(this.#hexadecimal)
+   }
 }
 
