@@ -1,67 +1,82 @@
 /**
- * Represents a hexadecimal string and provides utilities for validation, normalization, and conversion to Uint8Array.
+ * A utility class for working with hexadecimal strings and conversions.
  */
 export class HexaDecimal {
-   private hexadecimal: string;
-
    /**
-    * Creates a new HexaDecimal instance.
-    * 
-    * @param string - The hexadecimal string to store.
+    * Constructs a new HexaDecimal instance with a given string.
+    * @param {string} string - The hexadecimal string.
     */
    constructor(string: string);
 
    /**
-    * Normalizes a hexadecimal string by removing spaces.
-    * 
-    * @param string - The string to normalize.
-    * @returns A normalized string without spaces.
+    * Normalize a hexadecimal string by removing spaces.
+    * @param {string} string - The input string to normalize.
+    * @returns {string} - The normalized string without spaces.
     */
    static normalize(string: string): string;
 
    /**
-    * Validates a hexadecimal string.
-    * 
-    * @param string - The string to validate.
-    * @throws TypeError - If the string contains invalid characters.
-    * @throws Error - If the string length is not even.
+    * Validates whether a string is a properly formatted hexadecimal string.
+    * Ensures the string contains only valid hex characters and has an even length.
+    * @param {string} string - The string to validate.
+    * @throws {TypeError} If the string contains invalid characters.
+    * @throws {Error} If the string length is not even.
     */
    static validate(string: string): void;
 
    /**
-    * Converts a normalized hexadecimal string to a Uint8Array.
-    * 
-    * @param string - The hexadecimal string to convert.
-    * @returns The Uint8Array representation of the hexadecimal string.
-    * @throws TypeError - If the string contains invalid characters.
-    * @throws Error - If the string length is not even.
+    * Converts a hexadecimal string into a Uint8Array.
+    * @param {string} string - The hexadecimal string to convert.
+    * @returns {Uint8Array} - The resulting Uint8Array.
     */
    static uint8Array(string: string): Uint8Array;
 
    /**
-    * Creates a HexaDecimal instance from a string.
-    * 
-    * @param string - The string to convert to a HexaDecimal instance.
-    * @returns A new HexaDecimal instance.
+    * Creates a HexaDecimal instance from a hexadecimal string.
+    * @param {string} string - The hexadecimal string.
+    * @returns {HexaDecimal} - The new HexaDecimal instance.
     */
    static fromString(string: string): HexaDecimal;
 
    /**
     * Creates a HexaDecimal instance from a Uint8Array.
-    * 
-    * @param array - The Uint8Array to convert.
-    * @returns A new HexaDecimal instance.
+    * @param {Uint8Array} array - The array to convert to a HexaDecimal.
+    * @returns {HexaDecimal} - The new HexaDecimal instance.
     */
    static fromUint8Array(array: Uint8Array): HexaDecimal;
 
    /**
-    * Returns the Uint8Array representation of the stored hexadecimal string.
+    * Creates a HexaDecimal instance from a Base64URL-encoded string.
+    * @param {string} base64url - The Base64URL string to convert.
+    * @returns {HexaDecimal} - The new HexaDecimal instance.
     */
-   get byte(): Uint8Array;
+   static fromBase64Url(base64url: string): HexaDecimal;
 
-   /* returns hexa decimal string */
-   get string(): String
+   /**
+    * The hexadecimal string as a Uint8Array.
+    * @type {Uint8Array}
+    * @readonly
+    */
+   readonly byte: Uint8Array;
 
-   /* Returns hexa decimal string without spaces */
-   get normalized(): String
+   /**
+    * The original hexadecimal string.
+    * @type {string}
+    * @readonly
+    */
+   readonly string: string;
+
+   /**
+    * The normalized hexadecimal string without spaces.
+    * @type {string}
+    * @readonly
+    */
+   readonly normalized: string;
+
+   /**
+    * The Base64URL representation of the hexadecimal data.
+    * @type {string}
+    * @readonly
+    */
+   readonly base64url: string;
 }

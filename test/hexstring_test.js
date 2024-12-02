@@ -13,6 +13,10 @@ Deno.test("HexaDecimal", () => {
    const normalized = HexaDecimal.fromString("99381de560").normalized
    assertEquals(normalized, "99381de560")
 
+
 })
+
+const base64url = HexaDecimal.fromString("99 38 1d e5 60").base64url;
+const back3 = HexaDecimal.fromBase64Url(base64url);
 
 

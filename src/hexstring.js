@@ -33,22 +33,37 @@ export class HexaDecimal {
       return byteArray;
    }
 
-   static fromString(string){ return new HexaDecimal(string)}
+   static fromString(string) { return new HexaDecimal(string) }
 
    static fromUint8Array(array) {
       return HexaDecimal.fromString(Array.from(array, byte => byte.toString(16).padStart(2, '0')).join(''));
    }
 
-   get byte(){
+   static fromBase64Url(base64url) {
+      // Convert Base64URL to standard Base64 by replacing URL-safe characters
+      const base64 = base64url.replace(/-/g, '+').replace(/_/g, '/');
+
+      // Decode Base64 string into a Uint8Array
+      const binaryData = Uint8Array.from(atob(base64), char => char.charCodeAt(0));
+
+      return HexaDecimal.fromUint8Array(binaryData)
+   }
+
+   get byte() {
       return HexaDecimal.uint8Array(this.#hexadecimal)
    }
 
-   get string(){
+   get string() {
       return this.#hexadecimal
    }
 
-   get normalized(){
+   get normalized() {
       return HexaDecimal.normalize(this.#hexadecimal)
+   }
+
+   get base64url() {
+      const encoded = btoa(String.fromCharCode.apply(null, this.byte));
+      return encoded.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
    }
 }
 
