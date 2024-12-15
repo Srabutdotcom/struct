@@ -33,4 +33,13 @@ export class Struct extends Uint8Array {
      * @returns An array of the `Uint8Array` members.
      */
     get items(): Uint8Array[];
+
+    
+    /**
+     * Returns copy of Struct in the form of original `Uint8Array`
+     *
+     * @readonly
+     * @type {Uint8Array}
+     */
+    get byte(): Uint8Array;
 }

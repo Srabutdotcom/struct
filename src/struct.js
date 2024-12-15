@@ -45,6 +45,8 @@ export class Struct extends Uint8Array {
    get items() {
       return this.#items;
    }
+
+   get byte() { return new Uint8Array(this)};
 }
 
 // npx -p typescript tsc ./src/struct.js --declaration --allowJs --emitDeclarationOnly --lib ESNext --outDir ./dist
