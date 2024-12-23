@@ -8,20 +8,27 @@
  * @throws {RangeError} If a number is not between 0 and 255.
  */
 export function ensureUint8Array(...items) {
-   const validatedItems = items.length === 0
-      ? [new Uint8Array()]
-      : items.map(item => {
-         if (item instanceof Uint8Array) return item;
-         const num = typeof item === "number" ? item : Number(item);
-         if (!Number.isNaN(num)) {
-            if (num < 0 || num > 255) {
-               throw new RangeError("Number values must be between 0 and 255");
-            }
-            return Uint8Array.of(num);
+   // Helper to convert a single item to Uint8Array
+   function toUint8Array(item) {
+      if (item instanceof Uint8Array) return item;
+
+      const num = typeof item === "number" ? item : Number(item);
+      if (!Number.isNaN(num)) {
+         if (num < 0 || num > 255) {
+            throw new RangeError("Number values must be between 0 and 255");
          }
-         throw new TypeError("Expected all arguments to be Uint8Array or number");
-      });
-   return validatedItems
+         return Uint8Array.of(num);
+      }
+      throw new TypeError("Expected all arguments to be Uint8Array or number");
+   }
+
+   // If no items, return default
+   if (items.length === 0) {
+      return [new Uint8Array()];
+   }
+
+   // Validate and map items
+   return items.map(toUint8Array);
 }
 
 /**
@@ -182,7 +189,7 @@ export class Uint {
     * @param {number} max - The maximum value to set.
     */
    setMax(max) {
-      if(!max) return
+      if (!max) return
       if (max == 1) {
          this.#MAX = 256;
          this.#byteLength = 1; return
@@ -224,7 +231,7 @@ export class Uint {
     */
    get byteLength() { return this.#byteLength }
    [Symbol.toPrimitive](hint) {
-      if(hint==="number")return this.#uint;
+      if (hint === "number") return this.#uint;
       return this.#uint
    }
 }
