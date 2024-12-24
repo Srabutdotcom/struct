@@ -1,6 +1,5 @@
 // @ts-self-types="../type/struct.d.ts"
 
-import { concatOctet } from "./utils.js";
 import { safeuint8array } from "./safeuint8array.js"
 
 /**

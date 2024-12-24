@@ -1,6 +1,6 @@
 // @ts-self-types="../type/constrained.d.ts"
 
-import { concatOctet, ValueToUint8Array } from "./utils.js";
+import { ValueToUint8Array } from "./utils.js";
 import { safeuint8array } from "./safeuint8array.js"
 
 /**
