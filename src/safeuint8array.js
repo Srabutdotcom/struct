@@ -17,6 +17,8 @@ export class SafeUint8Array extends Uint8Array {
    concat(...items) {
       return new SafeUint8Array(this, ...items)
    }
+
+   get byte(){return new Uint8Array(this)}
 }
 
 const isByte = v => (
@@ -31,7 +33,7 @@ export function safeuint8array(...ar) {
    for (const i of ar) {
       i instanceof Uint8Array
          ? (r.set(i, of), of += i.length)
-         : isByte(i) && (r[offset++] = i);
+         : isByte(i) && (r[of++] = i);
    }
    return r
 }

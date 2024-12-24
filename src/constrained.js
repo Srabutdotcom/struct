@@ -1,6 +1,7 @@
 // @ts-self-types="../type/constrained.d.ts"
 
 import { concatOctet, ValueToUint8Array } from "./utils.js";
+import { safeuint8array } from "./safeuint8array.js"
 
 /**
  * A class that represents a constrained array with specified minimum and maximum length constraints.
@@ -40,13 +41,13 @@ export class Constrained extends Uint8Array {
             throw new RangeError("MAX length cannot be less than MIN length.");
         }
 
-        const concatItems = concatOctet(...items);
+        const concatItems = safeuint8array(...items);
         if (concatItems.length < MIN) {
             throw new RangeError("Total items length cannot be less than MIN length.");
         }
         const lengthOfConcatItems = ValueToUint8Array.of(MAX, concatItems.length);
 
-        super(concatOctet(lengthOfConcatItems, concatItems));
+        super(safeuint8array(lengthOfConcatItems, concatItems));
         this.#_MIN = MIN;
         this.#_MAX = MAX;
         this.#items = items;

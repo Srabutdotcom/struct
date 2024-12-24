@@ -21,6 +21,14 @@ export class SafeUint8Array extends Uint8Array {
     * @returns A new SafeUint8Array instance containing the concatenated values.
     */
    concat(...items: (Uint8Array | number)[]): SafeUint8Array;
+
+   /**
+    * Returns copy of Struct in the form of original `Uint8Array`
+    *
+    * @readonly
+    * @type {Uint8Array}
+    */
+   get byte(): Uint8Array;
 }
 
 /**

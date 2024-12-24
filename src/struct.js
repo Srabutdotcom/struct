@@ -1,6 +1,7 @@
 // @ts-self-types="../type/struct.d.ts"
 
 import { concatOctet } from "./utils.js";
+import { safeuint8array } from "./safeuint8array.js"
 
 /**
  * A class that represents a structure composed of multiple `Uint8Array` or `number` values.
@@ -33,7 +34,7 @@ export class Struct extends Uint8Array {
     */
    constructor(...items) {
       // Concatenate all Uint8Array items into a single Uint8Array
-      super(concatOctet(...items));
+      super(safeuint8array(...items));
       this.#items = items;
    }
 
