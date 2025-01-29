@@ -78,3 +78,14 @@ export class Constrained extends Uint8Array {
     }
 }
 
+export function parseItems(uint8array, start, lengthOf, object, parser) {
+    const items = new Set;
+    let offset = start;
+    while (true) {
+        const item = object.from(uint8array.subarray(offset)); offset += item.length;
+        if (parser) parser(item);
+        items.add(item);
+        if (offset >= lengthOf + start) break;
+    }
+    return items
+}

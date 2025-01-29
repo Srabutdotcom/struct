@@ -32,3 +32,22 @@ export class Constrained extends Uint8Array {
      */
     get MAX(): number;
 } 
+
+/**
+ * Parses items from a given Uint8Array and returns them as a Set.
+ *
+ * @param uint8array - The Uint8Array containing the data to parse.
+ * @param start - The starting index within the Uint8Array.
+ * @param lengthOf - The total length of data to parse.
+ * @param object - An object constructor with a `.from` method to create items.
+ * @param parser - An optional function to process each parsed item.
+ * @returns A Set containing the parsed items.
+ */
+export function parseItems<T>(
+    uint8array: Uint8Array,
+    start: number,
+    lengthOf: number,
+    object: { from: (data: Uint8Array) => T },
+    parser?: (item: T) => void
+  ): Set<T>;
+  
