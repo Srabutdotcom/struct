@@ -6,12 +6,11 @@ import { Uint } from "./utils.js";
  * Represents an 8-bit unsigned integer as a Uint8Array.
  */
 export class Uint8 extends Uint8Array {
-   constructor(array){
-      super(array.slice(0,1))
+   constructor(...array) {
+      super(...array.slice(0, 1))
    }
-   static from(array){
-      const copy = Array.from(array)
-      return new Uint8(copy)
+   static from(array) {
+      return new Uint8(array)
    }
    static fromValue(uint8) {
       const uint = Uint.from(uint8)
@@ -25,12 +24,11 @@ export class Uint8 extends Uint8Array {
  * Represents a 16-bit unsigned integer as a Uint8Array.
  */
 export class Uint16 extends Uint8Array {
-   constructor(array){
-      super(array.slice(0,2))
+   constructor(...array) {
+      super(...array.slice(0, 2))
    }
-   static from(array){
-      const copy = Array.from(array)
-      return new Uint16(copy)
+   static from(array) {
+      return new Uint16(array)
    }
    static fromValue(uint16) {
       const uint = Uint.from(uint16)
@@ -44,12 +42,11 @@ export class Uint16 extends Uint8Array {
  * Represents a 24-bit unsigned integer as a Uint8Array.
  */
 export class Uint24 extends Uint8Array {
-   constructor(array){
-      super(array.slice(0,3))
+   constructor(...array) {
+      super(...array.slice(0, 3))
    }
-   static from(array){
-      const copy = Array.from(array)
-      return new Uint24(copy)
+   static from(array) {
+      return new Uint24(array)
    }
    static fromValue(uint24) {
       const uint = Uint.from(uint24)
@@ -62,12 +59,11 @@ export class Uint24 extends Uint8Array {
  * Represents a 32-bit unsigned integer as a Uint8Array.
  */
 export class Uint32 extends Uint8Array {
-   constructor(array){
-      super(array.slice(0,4))
+   constructor(...array) {
+      super(...array.slice(0, 4))
    }
-   static from(array){
-      const copy = Array.from(array)
-      return new Uint32(copy)
+   static from(array) {
+      return new Uint32(array)
    }
    static fromValue(uint32) {
       const uint = Uint.from(uint32)

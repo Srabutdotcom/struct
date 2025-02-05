@@ -18,7 +18,7 @@ export class SafeUint8Array extends Uint8Array {
       return new SafeUint8Array(this, ...items)
    }
 
-   get byte(){return new Uint8Array(this)}
+   get byte() { return new Uint8Array(this) }
 }
 
 const isByte = v => (
