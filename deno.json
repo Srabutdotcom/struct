@@ -1,9 +1,13 @@
 {
   "name": "@tls/struct",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "exports": "./src/mod.ts",
   "publish": {
     "exclude": ["dist/"]
+  },
+  "task": {
+    "lint": "deno lint",
+    "test": "deno test"
   },
   "lint": {
     "include": ["src/"],

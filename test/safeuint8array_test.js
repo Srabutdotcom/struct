@@ -1,3 +1,4 @@
+import { byteJoin } from "../src/safeuint8array.js";
 import { safeuint8array, SafeUint8Array } from "../src/safeuint8array.js";
 import { assertEquals } from "jsr:@std/assert";
 
@@ -13,22 +14,32 @@ const array16 = crypto.getRandomValues(new Uint8Array(16))
 const array32 = crypto.getRandomValues(new Uint8Array(32))
 const array48 = crypto.getRandomValues(new Uint8Array(48))
 
-Deno.bench('using concat', ()=>{
+Deno.bench('using concat', () => {
    const a = array2.concat(array16, array32, array48);
 })
 
-Deno.bench('using safeuint8array', ()=>{
-   const a = safeuint8array(array2,array16, array32, array48)
+Deno.bench('using safeuint8array', () => {
+   const a = safeuint8array(array2, array16, array32, array48)
 })
 
-const a = safeuint8array(array2,array16, array32, array48)
+Deno.bench('using byteJoin', () => {
+   const a = byteJoin(array2, array16, array32, array48)
+})
 
-const isByte = v=>Number.isInteger(v)&&v>=0&&v<=255
+const a = safeuint8array(array2, array16, array32, array48)
+const b = byteJoin(array2, array16, array32, array48)
+console.log(a.toString());
+console.log(b.toString());
+
+const isByte = v => Number.isInteger(v) && v >= 0 && v <= 255
 
 console.log(isByte('255'))
 console.log(isByte(256))
 console.log(isByte('abc'))
 console.log(isByte(0x15))
+
+
+const test_0 = safeuint8array(1,2, undefined)
 const _n = null
 
 
