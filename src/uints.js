@@ -6,8 +6,9 @@ import { Uint } from "./utils.js";
  * Represents an 8-bit unsigned integer as a Uint8Array.
  */
 export class Uint8 extends Uint8Array {
-   constructor(...array) {
-      super(...array.slice(0, 1))
+   constructor(...args) {
+      if (args[0] instanceof Uint8Array) args[0] = args[0].slice(0, 1)
+      super(...args)
    }
    static from(array) {
       return new Uint8(array)
@@ -24,8 +25,9 @@ export class Uint8 extends Uint8Array {
  * Represents a 16-bit unsigned integer as a Uint8Array.
  */
 export class Uint16 extends Uint8Array {
-   constructor(...array) {
-      super(...array.slice(0, 2))
+   constructor(...args) {
+      if (args[0] instanceof Uint8Array) args[0] = args[0].slice(0, 2)
+      super(...args)
    }
    static from(array) {
       return new Uint16(array)
@@ -42,8 +44,9 @@ export class Uint16 extends Uint8Array {
  * Represents a 24-bit unsigned integer as a Uint8Array.
  */
 export class Uint24 extends Uint8Array {
-   constructor(...array) {
-      super(...array.slice(0, 3))
+   constructor(...args) {
+      if (args[0] instanceof Uint8Array) args[0] = args[0].slice(0, 3)
+      super(...args)
    }
    static from(array) {
       return new Uint24(array)
@@ -59,8 +62,9 @@ export class Uint24 extends Uint8Array {
  * Represents a 32-bit unsigned integer as a Uint8Array.
  */
 export class Uint32 extends Uint8Array {
-   constructor(...array) {
-      super(...array.slice(0, 4))
+   constructor(...args) {
+      if (args[0] instanceof Uint8Array) args[0] = args[0].slice(0, 4)
+      super(...args)
    }
    static from(array) {
       return new Uint32(array)
