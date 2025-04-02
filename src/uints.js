@@ -34,10 +34,14 @@ export class Uint16 extends Uint8Array {
    }
    static fromValue(uint16) {
       const uint = Uint.from(uint16)
-      return new Uint16([Math.trunc(uint / 256), uint % 256]);
+      return new Uint16(uintToBytes_faster(+uint, 2))
+      //return new Uint16([Math.trunc(uint / 256), uint % 256]);
    }
 
-   get value() { return this[0] * 256 + this[1]; }
+   get value() { 
+      return byteToUint_simple(this)
+      //return this[0] * 256 + this[1]; 
+   }
 }
 
 /**
@@ -53,9 +57,13 @@ export class Uint24 extends Uint8Array {
    }
    static fromValue(uint24) {
       const uint = Uint.from(uint24)
-      return new Uint24([Math.trunc(uint / 65536), Math.trunc(uint / 256), uint % 256]);
+      return new Uint24(uintToBytes_faster(+uint, 3))
+      //return new Uint24([Math.trunc(uint / 65536), Math.trunc(uint / 256), uint % 256]);
    }
-   get value() { return this[0] * 65536 + this[1] * 256 + this[2]; }
+   get value() { 
+      return byteToUint_simple(this)
+      //return this[0] * 65536 + this[1] * 256 + this[2]; 
+   }
 }
 
 /**
@@ -71,7 +79,31 @@ export class Uint32 extends Uint8Array {
    }
    static fromValue(uint32) {
       const uint = Uint.from(uint32)
-      return new Uint32([Math.trunc(uint / 16777216), Math.trunc(uint / 65536), Math.trunc(uint / 256), uint % 256]);
+      return new Uint32(uintToBytes_faster(+uint, 4))
+      //return new Uint32([Math.trunc(uint / 16777216), Math.trunc(uint / 65536), Math.trunc(uint / 256), uint % 256]);
    }
-   get value() { return this[0] * 16777216 + this[1] * 65536 + this[2] * 256 + this[3]; }
+   get value() { 
+      return byteToUint_simple(this)
+      //return this[0] * 16777216 + this[1] * 65536 + this[2] * 256 + this[3]; 
+   }
+}
+
+
+function byteToUint_simple(byte) {
+   return byte.reduce((previous, current) => (previous << 8) | current, 0)
+}
+
+function uintToBytes_faster(value, byteLength = 4) {
+   if (typeof value !== "number" || !Number.isSafeInteger(value) || value < 0 || value > 0xFFFFFFFF) {
+      throw new TypeError("Value must be a safe integer between 0 and 2^32 - 1.");
+   }
+
+   const bytes = [];
+
+   for (let i = byteLength - 1; i >= 0; i--) {
+      bytes[i] = value & 0xFF;
+      value >>= 8;
+   }
+
+   return bytes;
 }
